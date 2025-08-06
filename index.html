@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversor de Amarais</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(to right, #c6e2ff, #f0f0f0);
+    }
+    h1 {
+      color: #1e3d59;
+      margin-bottom: 1rem;
+    }
+    .amaral-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      margin-bottom: 1.5rem;
+    }
+    .converter {
+      background: #ffffffcc;
+      padding: 2rem;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    input {
+      width: 80%;
+      padding: 0.5rem;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      background-color: #1e88e5;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #1565c0;
+    }
+    p.resultado {
+      font-size: 1.3rem;
+      margin-top: 1rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Conversor de Amarais</h1>
+  <!-- Imagem do Amaral -->
+  <img src="amaral.jpg" alt="Amaral" class="amaral-img">
+
+  <div class="converter">
+    <label for="metros">Metros:</label><br>
+    <input type="number" id="metros" placeholder="Quantos metros?">
+    <button onclick="converterParaAmarais()">Converter para Amarais</button>
+
+    <p class="resultado" id="resultadoAmarais"></p>
+    <p class="resultado" id="resultadoKetamarais"></p>
+
+    <hr style="margin: 2rem 0;">
+
+    <label for="amarais">Amarais:</label><br>
+    <input type="number" id="amarais" placeholder="Quantos Amarais?">
+    <button onclick="converterParaMetros()">Converter para Metros</button>
+
+    <p class="resultado" id="resultadoMetros"></p>
+  </div>
+
+  <script>
+    const TAMANHO_AMARAL = 1.92;
+    const AMARAIS_POR_KETAMARAL = 1000;
+
+    function converterParaAmarais() {
+      const metros = parseFloat(document.getElementById("metros").value);
+      if (!isNaN(metros)) {
+        const amarais = metros / TAMANHO_AMARAL;
+        const ketamarais = amarais / AMARAIS_POR_KETAMARAL;
+        document.getElementById("resultadoAmarais").textContent = `${metros} metros = ${amarais.toFixed(2)} Amarais`;
+        document.getElementById("resultadoKetamarais").textContent = `Ou ${ketamarais.toFixed(4)} Ketamarais`;
+      } else {
+        document.getElementById("resultadoAmarais").textContent = "";
+        document.getElementById("resultadoKetamarais").textContent = "";
+      }
+    }
+
+    function converterParaMetros() {
+      const amarais = parseFloat(document.getElementById("amarais").value);
+      if (!isNaN(amarais)) {
+        const metros = amarais * TAMANHO_AMARAL;
+        document.getElementById("resultadoMetros").textContent = `${amarais} Amarais = ${metros.toFixed(2)} metros`;
+      } else {
+        document.getElementById("resultadoMetros").textContent = "";
+      }
+    }
+  </script>
+</body>
+</html>
