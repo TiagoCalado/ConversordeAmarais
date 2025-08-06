@@ -30,6 +30,7 @@
       max-width: 400px;
       margin: auto;
       box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      position: relative;
     }
     input {
       width: 80%;
@@ -57,6 +58,26 @@
       margin-top: 1rem;
       color: #333;
     }
+    .particle {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-image: url('amaral.jpg');
+      background-size: cover;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: float 1.5s ease-out forwards;
+    }
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) scale(0.5);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -64,7 +85,7 @@
   <!-- Imagem do Amaral -->
   <img src="amaral.jpg" alt="Amaral" class="amaral-img">
 
-  <div class="converter">
+  <div class="converter" id="converterContainer">
     <label for="metros">Metros:</label><br>
     <input type="number" id="metros" placeholder="Quantos metros?">
     <button onclick="converterParaAmarais()">Converter para Amarais</button>
@@ -92,6 +113,8 @@
         const ketamarais = amarais / AMARAIS_POR_KETAMARAL;
         document.getElementById("resultadoAmarais").textContent = `${metros} metros = ${amarais.toFixed(2)} Amarais`;
         document.getElementById("resultadoKetamarais").textContent = `Ou ${ketamarais.toFixed(4)} Ketamarais`;
+
+        soltarParticulas(10);
       } else {
         document.getElementById("resultadoAmarais").textContent = "";
         document.getElementById("resultadoKetamarais").textContent = "";
@@ -105,6 +128,21 @@
         document.getElementById("resultadoMetros").textContent = `${amarais} Amarais = ${metros.toFixed(2)} metros`;
       } else {
         document.getElementById("resultadoMetros").textContent = "";
+      }
+    }
+
+    function soltarParticulas(qtd) {
+      const container = document.getElementById('converterContainer');
+      for (let i = 0; i < qtd; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        particle.style.left = (Math.random() * 100) + '%';
+        particle.style.top = '80%';
+        container.appendChild(particle);
+
+        setTimeout(() => {
+          container.removeChild(particle);
+        }, 1500);
       }
     }
   </script>
